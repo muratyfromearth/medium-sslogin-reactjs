@@ -7,9 +7,9 @@ class UserLogin extends React.Component {
 
     onValueChange = (event) => {
         const {name, value} = event.target;
-        
+
         const errors = this.state.errors;
-        errors[name] = undefined;
+        errors["invalid" + name] = undefined;
 
         this.setState({[name]: value, errors});
     }
@@ -22,7 +22,6 @@ class UserLogin extends React.Component {
             await axios.post("/api/user/create", {username, password});
             alert(username + " created!");            
         } catch (error) {
-            alert(username + " not created!");            
             if (error.response.data.validationErrors)
                 this.setState({errors: error.response.data.validationErrors}); 
         }
